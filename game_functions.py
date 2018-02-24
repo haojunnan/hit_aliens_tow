@@ -3,7 +3,7 @@ import sys
 import pygame
 from bullet import Bullet
 def key_down(event,rocket,al_setting,screen,bullets):
-	"""¶ÔÓ¦°´¼ü¼¤»îÒÆ¶¯"""
+	"""å¯¹åº”æŒ‰é”®æ¿€æ´»ç§»åŠ¨"""
 	if event.key == pygame.K_RIGHT:
 		rocket.moving_right = True
 	elif event.key == pygame.K_LEFT:
@@ -16,7 +16,9 @@ def key_down(event,rocket,al_setting,screen,bullets):
 		if len(bullets) < al_setting.bullet_num:
 			new_bullet = Bullet(al_setting,rocket,screen)
 			bullets.add(new_bullet)
+			
 def key_up(event,rocket):
+	"""å¯¹åº”æŒ‰é”®æ¾å¼€"""		
 	if event.key == pygame.K_RIGHT:
 		rocket.moving_right = False
 	elif event.key == pygame.K_LEFT:
@@ -25,8 +27,9 @@ def key_up(event,rocket):
 		rocket.moving_up = False
 	elif event.key == pygame.K_DOWN:
 		rocket.moving_down = False
+		
 def check_events(rocket,al_setting,screen,bullets):
-	"""Êó±êÏìÓ¦ÊÂ¼þ"""
+	"""é¼ æ ‡å“åº”äº‹ä»¶"""
 	for event in pygame.event.get():
 		if event.type == pygame.QUIT:
 			sys.exit()
@@ -34,15 +37,17 @@ def check_events(rocket,al_setting,screen,bullets):
 			key_down(event,rocket,al_setting,screen,bullets)
 		elif event.type == pygame.KEYUP:
 			key_up(event,rocket)
+			
 def update_screen(al_setting,screen,rocket,bullets):
-	"""Ë¢ÐÂ½çÃæ"""
+	"""åˆ·æ–°ç•Œé¢"""
 	screen.fill(al_setting.screen_color)
 	for bullet in bullets:
 		bullet.draw_bullet()
 	rocket.blitem()
 	pygame.display.flip()
+	
 def update_bullets(bullets,al_setting):
-	"""¸üÐÂ×Óµ¯¿â£¬Ïû³ý¶àÓà×Óµ¯"""
+	"""æ›´æ–°å­å¼¹åº“ï¼Œæ¶ˆé™¤å¤šä½™å­å¼¹"""
 	bullets.update()
 	for bullet in bullets.copy():
 		if bullet.x > al_setting.screen_width:
